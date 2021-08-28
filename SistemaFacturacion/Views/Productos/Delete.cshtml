@@ -1,0 +1,39 @@
+﻿@model CapaEntidades.Producto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2 style="margin-left:8rem;">Borrar Producto</h2>
+
+<h3>Seguro quieres eliminar este producto?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Precio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Precio)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="col-md-offset" style="margin-left:8rem;">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a href="@Url.Action("Index")" class="btn btn-success"> Volver</a>
+        </div>
+    }
+</div>

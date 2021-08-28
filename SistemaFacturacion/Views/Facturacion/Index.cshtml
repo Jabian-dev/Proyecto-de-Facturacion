@@ -1,0 +1,81 @@
+﻿@model IEnumerable<CapaEntidades.Facturacion>
+
+@{
+    ViewBag.Title = "Facturas";
+}
+
+<h2>Lista de Facturas</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Crear Nuevo</a>
+</p>
+
+@using (Html.BeginForm())
+{
+    <div class="form-horizontal">
+        <div class="col-md-2 ">
+            @Html.Label("Filtrar por Fecha", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-3">
+            <input name="filtroFecha" type="date" class="form-control">
+        </div>
+        <div class="col-md-2 ">
+            @Html.Label("Filtrar por Cliente", htmlAttributes: new { @class = "control-label" })
+        </div>
+        <div class="col-md-3">
+            @Html.DropDownList("filtroCliente", new SelectList(ViewBag.clientes, "Id", "Nombre"), "Seleccionar", htmlAttributes: new { @class = "form-control" })
+        </div>
+        <div class="col-md-2">
+            <input type="submit" value="Buscar" class="btn btn-danger col-md-12" />
+        </div>
+    </div>
+}
+<p style="margin-top:70px;">
+    <strong>Cantidad de Facturas:  </strong>@ViewBag.conteo   <strong> Sumatoria:  </strong>  @String.Format("{0:0.00}", ViewBag.sumatoria) <strong> Max:  </strong>  @String.Format("{0:0.00}", ViewBag.max) <strong> Min:  </strong>  @String.Format("{0:0.00}", ViewBag.min)   <strong> Promedio:  </strong>    @String.Format("{0:0.00}", ViewBag.promedio)
+</p>
+<table class="table" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.cliente.Nombre)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.Fecha)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descuento)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Itbis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Total)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.cliente.Nombre)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.Fecha)
+    </td>
+    <td>
+        RD$@String.Format("{0:0.00}", item.Descuento)
+    </td>
+    <td>
+        RD$@String.Format("{0:0.00}", item.Itbis)
+    </td>
+    <td>
+        RD$@String.Format("{0:0.00}", item.Total)
+    </td>
+    <td>
+        <a href="@Url.Action("Details", new { Id = item.Id })" class="btn btn-info"><i class="fa fa-plus" aria-hidden="true"></i> Detalles</a>
+    </td>
+</tr>
+    }
+
+</table>
